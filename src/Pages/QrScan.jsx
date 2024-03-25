@@ -1,25 +1,46 @@
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     TouchableOpacity,
     Text,
     View,
-    ImageBackground,
     PermissionsAndroid
 } from 'react-native';
 import QRCodeScanner from 'react-native-qrcode-scanner';
 
 export const ScanScreen = ({ navigation }) => {
     const [scan, setScan] = useState(true);
-    const [scanResult, setScanResult] = useState(false);
     const [result, setResult] = useState(null);
     const [permision, setPermision] = useState(true);
     const [r, setR] = useState(false)
-    const [qrCode, setQrCode] = useState('')
-    console.log('22')
     const onSuccess = e => {
-        const check = e.data;
-        setQrCode(check)
-        dispatch(check_accaunt(check))
+        const check = e?.data;
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+
+        var raw = JSON.stringify({
+            "ticketNumber": JSON.parse(e.data).ticketNumber
+        });
+
+        var requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: raw,
+            redirect: 'follow'
+        };
+
+        fetch("https://api.shinetickets.com/createAttendee", requestOptions)
+            .then(response => response.json())
+            .then(result => {
+                if (result.success) {
+                    navigation.navigate('StatusPage', { params: { type: true } })
+                }
+                else {
+                    navigation.navigate('StatusPage', { params: { type: false, msg: result.message } })
+                }
+            })
+            .catch(error => {
+                navigation.navigate('StatusPage', { params: { type: false } })
+            });
     };
     activeQR = () => {
         setScan(true);

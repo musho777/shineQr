@@ -1,11 +1,8 @@
-import { StyleSheet, Text, TouchableOpacity } from "react-native"
-import { QrSvg } from "../../../svg";
-import { useNavigation } from "@react-navigation/native";
+import { StyleSheet, TouchableOpacity } from "react-native"
 
-export const Button = () => {
-    const navigation = useNavigation()
-    return <TouchableOpacity onPress={() => navigation.navigate('ScanScreen')} style={styles.Button}>
-        <QrSvg />
+export const Button = ({ svg, onPress }) => {
+    return <TouchableOpacity onPress={() => onPress()} style={styles.Button}>
+        {svg}
     </TouchableOpacity>
 }
 

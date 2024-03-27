@@ -4,16 +4,42 @@ import { useNavigation } from "@react-navigation/native"
 
 export const StatusPage = (props) => {
     const navigation = useNavigation()
-    const type = props.route?.params.params?.type
-    const msg = props.route?.params.params?.msg
+    const type = props.route?.params?.params?.type
+    const msg = props.route?.params?.params?.msg
+    const row = props.route?.params?.params?.row
+    console.log(row)
     return <View style={styles.container}>
         {type ?
             <SuccessSvg /> :
             <ErrorSvg />
         }
         {type ?
-            <Text style={styles.text}>Success</Text> :
+            <View style={styles.data}>
+                <Text style={styles.text}>Success</Text>
+                <View >
+                    <View style={styles.rowSeat}>
+                        <Text style={styles.rowText}>row</Text>
+                        <Text style={styles.rowText}>{row?.row}</Text>
+                    </View>
+                    <View style={[styles.rowSeat, { backgroundColor: '#f0eded' }]}>
+                        <Text style={styles.rowText}>seat</Text>
+                        <Text style={styles.rowText}>{row?.seat}</Text>
+                    </View>
+                    <View style={styles.rowSeat}>
+                        <Text style={styles.rowText}>price</Text>
+                        <Text style={styles.rowText}>{row?.price}</Text>
+                    </View>
+                    <View style={[styles.rowSeat, { backgroundColor: '#f0eded' }]}>
+                        <Text style={styles.rowText}>place</Text>
+                        {row?.parter ?
+                            <Text style={styles.rowText}>parter</Text> :
+                            <Text style={styles.rowText}>amf</Text>
+                        }
+                    </View>
+                </View>
+            </View> :
             <Text style={[styles.text, { color: 'red', fontSize: 20 }]}>{msg}</Text>
+
         }
         <TouchableOpacity onPress={() => navigation.navigate('FirstPage')} style={styles.button}>
             <GoBackSvg />
@@ -21,7 +47,7 @@ export const StatusPage = (props) => {
         <TouchableOpacity style={styles.HallButton} onPress={() => navigation.navigate('HallPage')} >
             <Text style={styles.HallButtonText}>Hall</Text>
         </TouchableOpacity>
-    </View>
+    </View >
 }
 const styles = StyleSheet.create({
     container: {
@@ -56,5 +82,20 @@ const styles = StyleSheet.create({
         paddingVertical: 2,
         borderRadius: 15,
         marginTop: 20,
+    },
+    data: {
+        justifyContent: 'center',
+    },
+    rowSeat: {
+        flexDirection: 'row',
+        width: 150,
+        justifyContent: 'space-between',
+        paddingHorizontal: 3,
+        backgroundColor: '#e0dcdc'
+    },
+    rowText: {
+        fontSize: 20,
+        color: '#000',
+        fontWeight: '600'
     }
 });

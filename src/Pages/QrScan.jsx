@@ -32,7 +32,7 @@ export const ScanScreen = ({ navigation }) => {
             .then(response => response.json())
             .then(result => {
                 if (result.success) {
-                    navigation.navigate('StatusPage', { params: { type: true, row: JSON.parse(e.data) } })
+                    navigation.navigate('StatusPage', { params: { type: true, row: JSON.parse(e.data), data: result.newAttendee } })
                 }
                 else {
                     navigation.navigate('StatusPage', { params: { type: false, msg: result.message } })

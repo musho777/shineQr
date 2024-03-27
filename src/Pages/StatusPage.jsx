@@ -7,7 +7,8 @@ export const StatusPage = (props) => {
     const type = props.route?.params?.params?.type
     const msg = props.route?.params?.params?.msg
     const row = props.route?.params?.params?.row
-    console.log(row)
+    const data = props.route?.params?.params?.data
+
     return <View style={styles.container}>
         {type ?
             <SuccessSvg /> :
@@ -18,23 +19,31 @@ export const StatusPage = (props) => {
                 <Text style={styles.text}>Success</Text>
                 <View >
                     <View style={styles.rowSeat}>
-                        <Text style={styles.rowText}>row</Text>
+                        <Text style={styles.rowText}>Row</Text>
                         <Text style={styles.rowText}>{row?.row}</Text>
                     </View>
                     <View style={[styles.rowSeat, { backgroundColor: '#f0eded' }]}>
-                        <Text style={styles.rowText}>seat</Text>
+                        <Text style={styles.rowText}>Seat</Text>
                         <Text style={styles.rowText}>{row?.seat}</Text>
                     </View>
                     <View style={styles.rowSeat}>
-                        <Text style={styles.rowText}>price</Text>
+                        <Text style={styles.rowText}>Price</Text>
                         <Text style={styles.rowText}>{row?.price}</Text>
                     </View>
                     <View style={[styles.rowSeat, { backgroundColor: '#f0eded' }]}>
-                        <Text style={styles.rowText}>place</Text>
-                        {row?.parter ?
-                            <Text style={styles.rowText}>parter</Text> :
-                            <Text style={styles.rowText}>amf</Text>
+                        <Text style={styles.rowText}>Place</Text>
+                        {data?.parterre ?
+                            <Text style={styles.rowText}>Parter</Text> :
+                            <Text style={styles.rowText}>Amf.</Text>
                         }
+                    </View>
+                    <View style={[styles.rowSeat]}>
+                        <Text style={styles.rowText}>Name </Text>
+                        <Text style={styles.rowText}> {data.buyerName}</Text>
+                    </View>
+                    <View style={[styles.rowSeat, { backgroundColor: '#f0eded' }]}>
+                        <Text style={styles.rowText}>Phone</Text>
+                        <Text style={styles.rowText}>{data.buyerPhone}</Text>
                     </View>
                 </View>
             </View> :
@@ -57,10 +66,11 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     text: {
-        marginTop: 10,
+        marginVertical: 10,
         fontSize: 40,
         color: `rgb(100,186,53)`,
-        fontWeight: '900'
+        fontWeight: '900',
+        textAlign: 'center',
     },
     button: {
         marginTop: 30,
@@ -88,9 +98,9 @@ const styles = StyleSheet.create({
     },
     rowSeat: {
         flexDirection: 'row',
-        width: 150,
         justifyContent: 'space-between',
-        paddingHorizontal: 3,
+        paddingHorizontal: 6,
+        paddingVertical: 3,
         backgroundColor: '#e0dcdc'
     },
     rowText: {

@@ -5,20 +5,21 @@ import { FirstPage } from './src/Pages/FirstPage';
 import { ScanScreen } from './src/Pages/QrScan';
 import { HallPage } from './src/Pages/HallPage';
 import { StatusPage } from './src/Pages/StatusPage';
-export default Navigation = ({ token, }) => {
-
-    const MyTheme = {
-        dark: false,
-        // colors: {
-        //     primary: AppColors.White_Color,
-        //     background: AppColors.White_Color,
-        //     border: AppColors.White_Color,
-        // },
-    };
+import { Login } from './src/Pages/LoginPage';
+import { useState } from 'react';
+export default Navigation = ({ initialRouteName }) => {
+    const [i, setI] = useState(initialRouteName)
     const Stack = createStackNavigator();
     return (
         <NavigationContainer >
-            <Stack.Navigator initialRouteName={'FirstPage'}>
+            <Stack.Navigator initialRouteName={i}>
+                <Stack.Screen
+                    name="Login"
+                    component={Login}
+                    options={{
+                        headerShown: false,
+                    }}
+                />
                 <Stack.Screen
                     name="FirstPage"
                     component={FirstPage}

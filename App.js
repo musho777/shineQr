@@ -1,12 +1,23 @@
-import { SafeAreaView, View } from "react-native"
-import { FirstPage } from "./src/Pages/FirstPage"
 import 'react-native-gesture-handler';
 import Navigation from "./Navigation";
-import { ScanScreen } from "./src/Pages/QrScan";
+import { useEffect, useState } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const App = () => {
-  // return <ScanScreen />
-  return <Navigation />
+  const [initialRouteName, setInitialRouteName] = useState("")
+  const CheckLogin = async () => {
+    let key = await AsyncStorage.getItem("key")
+    if (key) {
+      setInitialRouteName("FirstPage")
+    }
+    else {
+      setInitialRouteName("Login")
+    }
+  }
+  useEffect(() => {
+    CheckLogin()
+  }, [])
+  return <Navigation initialRouteName={initialRouteName} />
 
 }
 

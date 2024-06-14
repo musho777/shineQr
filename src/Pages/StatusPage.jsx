@@ -53,9 +53,9 @@ export const StatusPage = (props) => {
         <TouchableOpacity onPress={() => navigation.navigate('FirstPage')} style={styles.button}>
             <GoBackSvg />
         </TouchableOpacity>
-        <TouchableOpacity style={styles.HallButton} onPress={() => navigation.navigate('HallPage')} >
+        {/* <TouchableOpacity style={styles.HallButton} onPress={() => navigation.navigate('HallPage')} >
             <Text style={styles.HallButtonText}>Hall</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
     </View >
 }
 const styles = StyleSheet.create({

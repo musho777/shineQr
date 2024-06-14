@@ -10,7 +10,7 @@ export const FirstPage = ({ navigation }) => {
     }
     return <View style={styles.container}>
         <Button onPress={() => navigation.navigate('ScanScreen')} svg={<QrSvg />} />
-        <Button onPress={() => navigation.navigate('HallPage')} svg={<HallSvg />} />
+        {/* <Button onPress={() => navigation.navigate('HallPage')} svg={<HallSvg />} /> */}
         <TouchableOpacity onPress={() => { Logout() }}>
             <Text style={styles.text}>logout</Text>
         </TouchableOpacity>

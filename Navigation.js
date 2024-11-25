@@ -6,13 +6,25 @@ import { ScanScreen } from './src/Pages/QrScan';
 import { HallPage } from './src/Pages/HallPage';
 import { StatusPage } from './src/Pages/StatusPage';
 import { Login } from './src/Pages/LoginPage';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { AddToken } from './src/store/action/action';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 export default Navigation = ({ initialRouteName }) => {
-    const [i, setI] = useState(initialRouteName)
     const Stack = createStackNavigator();
+    const dispatch = useDispatch()
+    const getToken = async () => {
+        let uuid = await AsyncStorage.getItem("UUID")
+        let id = await AsyncStorage.getItem("ID")
+        dispatch(AddToken(uuid, id))
+    }
+    useEffect(() => {
+        getToken()
+    }, [])
+
     return (
         <NavigationContainer >
-            <Stack.Navigator initialRouteName={i}>
+            <Stack.Navigator initialRouteName={initialRouteName}>
                 <Stack.Screen
                     name="Login"
                     component={Login}

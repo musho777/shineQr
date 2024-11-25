@@ -8,8 +8,9 @@ import { store } from './src/store/configStore';
 const App = () => {
   const [initialRouteName, setInitialRouteName] = useState("")
   const CheckLogin = async () => {
-    let key = await AsyncStorage.getItem("key")
-    if (key) {
+    let uuid = await AsyncStorage.getItem("UUID")
+    let id = await AsyncStorage.getItem("ID")
+    if (uuid && id) {
       setInitialRouteName("FirstPage")
     }
     else {
@@ -20,7 +21,8 @@ const App = () => {
     CheckLogin()
   }, [])
   return <Provider store={store}>
-    <Navigation initialRouteName={initialRouteName} />
+    {initialRouteName && <Navigation initialRouteName={initialRouteName} />
+    }
   </Provider>
 
 }

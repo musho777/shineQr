@@ -1,6 +1,8 @@
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import { useEffect, useState } from "react"
 import { ImageBackground, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native"
+import { useDispatch } from "react-redux"
+import { AddToken } from "../store/action/action"
 
 
 export const Login = ({ navigation }) => {
@@ -12,6 +14,7 @@ export const Login = ({ navigation }) => {
   ]
   const [valueUuid, setValueUuid] = useState("")
   const [valueId, setValueId] = useState("")
+  const dispatch = useDispatch()
 
   const [error, setError] = useState("")
 
@@ -19,6 +22,7 @@ export const Login = ({ navigation }) => {
     let uuid = await AsyncStorage.getItem("UUID")
     let id = await AsyncStorage.getItem("ID")
     if (uuid && id) {
+      dispatch(AddToken(uuid, id))
       navigation.navigate("FirstPage")
     }
 

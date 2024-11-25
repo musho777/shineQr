@@ -2,6 +2,8 @@ import 'react-native-gesture-handler';
 import Navigation from "./Navigation";
 import { useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Provider } from 'react-redux';
+import { store } from './src/store/configStore';
 
 const App = () => {
   const [initialRouteName, setInitialRouteName] = useState("")
@@ -17,7 +19,9 @@ const App = () => {
   useEffect(() => {
     CheckLogin()
   }, [])
-  return <Navigation initialRouteName={initialRouteName} />
+  return <Provider store={store}>
+    <Navigation initialRouteName={initialRouteName} />
+  </Provider>
 
 }
 
